@@ -101,14 +101,14 @@ void create_file(Directory *cwd)
 
     if (find_file_in_dir(cwd, name))
     {
-        printf("Error: File exists.\n");
+        printf("Error: File exists\n");
         return;
     }
 
     int block = alloc_block();
     if (block < 0)
     {
-        printf("Error: Disk full.\n");
+        printf("Error: Disk full\n");
         return;
     }
 
@@ -119,7 +119,7 @@ void create_file(Directory *cwd)
     f->isOpen = 0;
     memset(f->contents, 0, BLOCK_SIZE);
 
-    printf("File '%s' created at block %d.\n", name, block);
+    printf("File '%s' created at block %d\n", name, block);
 }
 
 void open_file()
@@ -131,7 +131,7 @@ void open_file()
     File *f = find_file_global(root, name, NULL);
     if (!f)
     {
-        printf("Error: File not found.\n");
+        printf("Error: File not found\n");
         return;
     }
 
@@ -163,7 +163,7 @@ void open_file()
     }
 
     f->size = strlen(f->contents);
-    printf("Buffer updated. Close file to save changes to disk.\n");
+    printf("Buffer updated. Close file to save changes to disk\n");
 }
 
 void close_file()
@@ -175,14 +175,14 @@ void close_file()
     File *f = find_file_global(root, name, NULL);
     if (!f || !f->isOpen)
     {
-        printf("Error: File not found or not open.\n");
+        printf("Error: File not found or not open\n");
         return;
     }
 
     // Save from buffer to simulated disk
     memcpy(&disk[f->startBlock * BLOCK_SIZE], f->contents, BLOCK_SIZE);
     f->isOpen = 0;
-    printf("File %s saved to disk and closed.\n", f->name);
+    printf("File %s saved to disk and closed\n", f->name);
 }
 
 void create_dir(Directory *cwd)
@@ -193,18 +193,18 @@ void create_dir(Directory *cwd)
 
     if (find_subdir(cwd, name))
     {
-        printf("Error: Directory exists.\n");
+        printf("Error: Directory exists\n");
         return;
     }
 
     if (cwd->subdirCount >= 16)
     {
-        printf("Error: Directory full.\n");
+        printf("Error: Directory full\n");
         return;
     }
 
     cwd->subdirs[cwd->subdirCount++] = make_dir(name, cwd);
-    printf("Directory %s created.\n", name);
+    printf("Directory %s created\n", name);
 }
 
 void search_file()
@@ -313,15 +313,15 @@ int main(int argc, char *argv[])
                 if (target)
                     cwd = target;
                 else
-                    printf("Error: Directory not found.\n");
+                    printf("Error: Directory not found\\n");
             }
             break;
         }
         case 8:
-            printf("Goodbye.\n");
+            printf("Goodbye\n");
             return 0;
         default:
-            printf("Invalid choice.\n");
+            printf("Invalid choice\n");
         }
     }
     return 0;
